@@ -7,11 +7,18 @@ framework:
             async:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
                 options:
-                    use_notify: true
-                    check_delayed_interval: 60000
+                    #use_notify: true
+                    #check_delayed_interval: 60000
+                    exchange:
+                        name: messages
+                        type: direct
+                    queues:
+                        messages: ~
                 retry_strategy:
                     max_retries: 3
+                    delay: 1000
                     multiplier: 2
+                    max_delay: 0
             failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
 
@@ -24,6 +31,9 @@ framework:
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
+            'App\Message\UserCreatedMessage': async
+            'App\Message\UserUpdatedMessage': async
+            #'App\Message\UserDeletedMessage': async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async
