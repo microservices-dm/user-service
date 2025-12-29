@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use App\Entity\User;
@@ -60,7 +62,7 @@ class AuthService
         return [
             'token' => $token,
             'refresh_token' => $refreshToken,
-            'expires_in' => 3600
+            'expires_in' => 36000
         ];
     }
 
